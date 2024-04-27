@@ -9,6 +9,8 @@ from __future__ import print_function
 import random
 import numpy as np
 from collections import defaultdict, deque
+
+from dots_board import DotsBoard
 from game import Board, Game
 from mcts_pure import MCTSPlayer as MCTS_Pure
 from mcts_alphaZero import MCTSPlayer
@@ -18,15 +20,17 @@ from policy_value_net_pytorch import PolicyValueNet  # Pytorch
 # from policy_value_net_keras import PolicyValueNet # Keras
 
 
-class TrainPipeline():
+class TrainPipeline:
     def __init__(self, init_model=None):
         # params of the board and the game
         self.board_width = 6
         self.board_height = 6
         self.n_in_row = 4
-        self.board = Board(width=self.board_width,
-                           height=self.board_height,
-                           n_in_row=self.n_in_row)
+        self.board = DotsBoard(
+            width=self.board_width,
+            height=self.board_height,
+            n_in_row=self.n_in_row
+        )
         self.game = Game(self.board)
         # training params
         self.learn_rate = 2e-3
@@ -85,8 +89,7 @@ class TrainPipeline():
     def collect_selfplay_data(self, n_games=1):
         """collect self-play data for training"""
         for i in range(n_games):
-            winner, play_data = self.game.start_self_play(self.mcts_player,
-                                                          temp=self.temp)
+            winner, play_data = self.game.start_self_play(self.mcts_player, temp=self.temp)
             play_data = list(play_data)[:]
             self.episode_len = len(play_data)
             # augment the data

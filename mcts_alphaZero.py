@@ -109,7 +109,7 @@ class MCTS(object):
         State is modified in-place, so a copy must be provided.
         """
         node = self._root
-        while(1):
+        while True:
             if node.is_leaf():
                 break
             # Greedily select next move.

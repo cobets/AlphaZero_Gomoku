@@ -195,9 +195,7 @@ class Game(object):
         p1, p2 = self.board.players
         states, mcts_probs, current_players = [], [], []
         while True:
-            move, move_probs = player.get_action(self.board,
-                                                 temp=temp,
-                                                 return_prob=1)
+            move, move_probs = player.get_action(self.board, temp=temp, return_prob=1)
             # store the data
             states.append(self.board.current_state())
             mcts_probs.append(move_probs)

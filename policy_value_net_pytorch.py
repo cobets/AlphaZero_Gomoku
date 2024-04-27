@@ -57,11 +57,10 @@ class Net(nn.Module):
         return x_act, x_val
 
 
-class PolicyValueNet():
+class PolicyValueNet:
     """policy-value network """
-    def __init__(self, board_width, board_height,
-                 model_file=None, use_gpu=False):
-        self.use_gpu = use_gpu
+    def __init__(self, board_width, board_height, model_file=None):
+        self.use_gpu = torch.cuda.is_available()
         self.board_width = board_width
         self.board_height = board_height
         self.l2_const = 1e-4  # coef of l2 penalty
