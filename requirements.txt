@@ -1,0 +1,5 @@
+numpy
+torch
+tensorboard
+git+https://github.com/cobets/dots-env@main
+
